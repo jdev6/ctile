@@ -1,0 +1,14 @@
+!all words in big endian
+
+header 26 bytes:
+	5 bytes "ctile"
+	2 bytes width
+	2 bytes height
+	1 byte tile page
+	16 bytes metadata (ignored)
+
+data width*height*3 bytes:
+	coordinates assumed from offset
+	1 byte tile (of tile page)
+	1 byte type
+	1 byte attributes (of the type)
