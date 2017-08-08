@@ -33,6 +33,7 @@ typedef struct {
 } ctile_map;
 
 ctile_map* ctile_load(char* filename);
+ctile_tile* ctile_get_tile(ctile_map* map, int x, int y);
 void ctile_draw(ALLEGRO_BITMAP* bmp, ctile_map* map, int twidth, int theight, float x, float y);
 void ctile_destroy(ctile_map* map);
 

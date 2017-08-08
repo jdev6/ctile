@@ -57,7 +57,12 @@ void ctile_destroy(ctile_map* map) {
 }
 
 //COLLISION
-inline int _AABB_COLLISION(float b1_x, float b1_y, float b1_w, float b1_h, float b2_x, float b2_y, float b2_w, float b2_h) {
+#ifdef  __GNUC_GNU_INLINE__
+inline
+#else
+#warning no inline
+#endif
+int _ctile_AABB_COLLISION(float b1_x, float b1_y, float b1_w, float b1_h, float b2_x, float b2_y, float b2_w, float b2_h) {
 	return !((b1_x > b2_x + b2_w - 1) ||
 		     (b1_y > b2_y + b2_h - 1) ||
 		     (b2_x > b1_x + b1_w - 1) ||
@@ -73,7 +78,7 @@ ctile_collision_info* ctile_collision(ctile_map* map, float goal_x, float goal_y
 	//STEP X
 	for (int i = 0; i < len; i++) {
 		int tile_x = tw*(i%map->width), tile_y = th*(int)(i/map->width);
-		if (map->data[i].tile > 0 && _AABB_COLLISION(goal_x,*y, w,h, tile_x,tile_y,tw,th)) {
+		if (map->data[i].tile > 0 && _ctile_AABB_COLLISION(goal_x,*y, w,h, tile_x,tile_y,tw,th)) {
 			col_count++;
 			//printf("coallision %f %f, %i %i\n", goal_x, goal_y, tile_x, tile_y);
 		}
@@ -86,7 +91,7 @@ ctile_collision_info* ctile_collision(ctile_map* map, float goal_x, float goal_y
 	//STEP Y
 	for (int i = 0; i < len; i++) {
 		int tile_x = tw*(i%map->width), tile_y = th*(int)(i/map->width);
-		if (map->data[i].tile > 0 && _AABB_COLLISION(*x,goal_y, w,h, tile_x,tile_y,tw,th)) {
+		if (map->data[i].tile > 0 && _ctile_AABB_COLLISION(*x,goal_y, w,h, tile_x,tile_y,tw,th)) {
 			col_count++;
 			//printf("coallision %f %f, %i %i\n", goal_x, goal_y, tile_x, tile_y);
 		}
