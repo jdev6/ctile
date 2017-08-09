@@ -1,6 +1,9 @@
 #include <allegro5/allegro5.h>
 #include "ctile.h"
 
+int CTILE_INTANGIBLE = 0;
+int CTILE_SOLID = 1;
+
 ctile_map* ctile_load(char* filename) {
 	//allocate map
 	ctile_map* map = al_malloc(sizeof(ctile_map));
@@ -78,7 +81,7 @@ ctile_collision_info* ctile_collision(ctile_map* map, float goal_x, float goal_y
 	//STEP X
 	for (int i = 0; i < len; i++) {
 		int tile_x = tw*(i%map->width), tile_y = th*(int)(i/map->width);
-		if (map->data[i].tile > 0 && _ctile_AABB_COLLISION(goal_x,*y, w,h, tile_x,tile_y,tw,th)) {
+		if (map->data[i].type == CTILE_SOLID && _ctile_AABB_COLLISION(goal_x,*y, w,h, tile_x,tile_y,tw,th)) {
 			col_count++;
 			//printf("coallision %f %f, %i %i\n", goal_x, goal_y, tile_x, tile_y);
 		}
@@ -91,7 +94,7 @@ ctile_collision_info* ctile_collision(ctile_map* map, float goal_x, float goal_y
 	//STEP Y
 	for (int i = 0; i < len; i++) {
 		int tile_x = tw*(i%map->width), tile_y = th*(int)(i/map->width);
-		if (map->data[i].tile > 0 && _ctile_AABB_COLLISION(*x,goal_y, w,h, tile_x,tile_y,tw,th)) {
+		if (map->data[i].type == CTILE_SOLID && _ctile_AABB_COLLISION(*x,goal_y, w,h, tile_x,tile_y,tw,th)) {
 			col_count++;
 			//printf("coallision %f %f, %i %i\n", goal_x, goal_y, tile_x, tile_y);
 		}

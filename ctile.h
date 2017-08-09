@@ -3,12 +3,8 @@
 
 #include <ctype.h>
 
-enum ctile_type {
-	CTILE_NORMAL  = 0,
-	CTILE_SLOPE   = 1,
-	CTILE_SPAWNER = 2,
-	CTILE_SPECIAL = 3
-};
+int CTILE_INTANGIBLE;
+int CTILE_SOLID;
 
 typedef union {
 	uint8_t val;
