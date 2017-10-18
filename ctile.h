@@ -5,6 +5,8 @@
 
 int CTILE_INTANGIBLE;
 int CTILE_SOLID;
+int CTILE_SLOPE;
+#define CTILE_LAST CTILE_SLOPE
 
 typedef union {
 	uint8_t val;
@@ -29,6 +31,9 @@ typedef struct {
 } ctile_map;
 
 ctile_map* ctile_load(char* filename);
+
+#define ctile_foreach(m, t, x, y) for (int _i = 0; _i < m->width*m->height; t = m->data[++_i], x = (_i%m->width), y = (_i/m->width))
+
 ctile_tile* ctile_get_tile(ctile_map* map, int x, int y);
 void ctile_draw(ALLEGRO_BITMAP* bmp, ctile_map* map, int twidth, int theight, float x, float y);
 void ctile_destroy(ctile_map* map);

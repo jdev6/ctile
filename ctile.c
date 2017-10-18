@@ -3,6 +3,7 @@
 
 int CTILE_INTANGIBLE = 0;
 int CTILE_SOLID = 1;
+int CTILE_SLOPE = 2;
 
 ctile_map* ctile_load(char* filename) {
 	//allocate map
@@ -77,7 +78,6 @@ ctile_collision_info* ctile_collision(ctile_map* map, float goal_x, float goal_y
 	size_t len = map->width * map->height;
 	ctile_collision_info* cols = NULL;
 	int col_count = 0;
-	
 	//STEP X
 	for (int i = 0; i < len; i++) {
 		int tile_x = tw*(i%map->width), tile_y = th*(int)(i/map->width);
